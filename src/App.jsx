@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { VRButton } from 'three/examples/jsm/webxr/VRButton';
+import { ARButton } from 'three/examples/jsm/webxr/ARButton'; // Import ARButton
 import { locations } from './locations'; // Import your locations
 
 // Utility function to get location
@@ -64,21 +65,8 @@ const App = () => {
       // Add VRButton (for VR mode)
       document.body.appendChild(VRButton.createButton(renderer));
 
-      // Add AR Button
-      const arButton = document.createElement('button');
-      arButton.textContent = 'Enter AR';
-      arButton.style.position = 'absolute';
-      arButton.style.top = '10px';
-      arButton.style.left = '10px';
-      arButton.style.zIndex = '1000';
-      arButton.onclick = () => {
-        navigator.xr.requestSession('immersive-ar').then((session) => {
-          renderer.xr.setSession(session);
-        }).catch((error) => {
-          console.error('Failed to start AR session:', error);
-        });
-      };
-      document.body.appendChild(arButton);
+      // Add ARButton (for AR mode)
+      document.body.appendChild(ARButton.createButton(renderer));
 
       // Setup AR Session
       renderer.xr.enabled = true;
@@ -120,7 +108,8 @@ const App = () => {
       // Cleanup on unmount
       return () => {
         document.body.removeChild(renderer.domElement);
-        document.body.removeChild(arButton);
+        document.body.removeChild(VRButton.createButton(renderer));
+        document.body.removeChild(ARButton.createButton(renderer));
       };
     }
   }, [location]);
