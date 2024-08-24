@@ -71,9 +71,6 @@ const App = () => {
       // Setup AR Session
       renderer.xr.enabled = true;
 
-      // Camera position
-      camera.position.set(0, 1.6, 3);
-
       // Add lights
       const light = new THREE.AmbientLight(0xffffff, 1);
       scene.add(light);
@@ -91,7 +88,9 @@ const App = () => {
         // Check if within 100 meters (adjust as needed)
         if (distance < 100) {
           loader.load(locationData.modelPath, (gltf) => {
-            scene.add(gltf.scene);
+            const model = gltf.scene;
+            model.position.set(locationData.x, locationData.y, locationData.z); // Position the model in AR space
+            scene.add(model);
           }, undefined, (error) => {
             console.error('An error happened while loading the model:', error);
           });
