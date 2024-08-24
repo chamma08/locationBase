@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -61,7 +60,28 @@ const App = () => {
       const renderer = new THREE.WebGLRenderer({ antialias: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
+
+      // Add VRButton (for VR mode)
       document.body.appendChild(VRButton.createButton(renderer));
+
+      // Add AR Button
+      const arButton = document.createElement('button');
+      arButton.textContent = 'Enter AR';
+      arButton.style.position = 'absolute';
+      arButton.style.top = '10px';
+      arButton.style.left = '10px';
+      arButton.style.zIndex = '1000';
+      arButton.onclick = () => {
+        navigator.xr.requestSession('immersive-ar').then((session) => {
+          renderer.xr.setSession(session);
+        }).catch((error) => {
+          console.error('Failed to start AR session:', error);
+        });
+      };
+      document.body.appendChild(arButton);
+
+      // Setup AR Session
+      renderer.xr.enabled = true;
 
       // Camera position
       camera.position.set(0, 1.6, 3);
@@ -100,15 +120,17 @@ const App = () => {
       // Cleanup on unmount
       return () => {
         document.body.removeChild(renderer.domElement);
-        document.body.removeChild(VRButton.createButton(renderer));
+        document.body.removeChild(arButton);
       };
     }
   }, [location]);
 
   return (
-    <div>
-      <h1>WebXR Location-Based App</h1>
-      <p>Current Location: {location ? `${location.latitude}, ${location.longitude}` : 'Fetching...'}</p>
+    <div style={{ textAlign: 'center', padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+      <h1 style={{ fontSize: '2em' }}>WebXR AR Location-Based App</h1>
+      <p style={{ fontSize: '1.2em' }}>
+        Current Location: {location ? `${location.latitude.toFixed(4)}, ${location.longitude.toFixed(4)}` : 'Fetching...'}
+      </p>
     </div>
   );
 };
