@@ -1,67 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import { useGeolocated } from 'react-geolocated';
-import { toast } from 'react-toastify';
+import React, { useState, useEffect } from 'react';
+import ThreeDScene from './ThreeDScene'; // Ensure this is the correct path
 
-const predefinedLocation = { latitude:  7.408441, longitude: 80.610129 }; // Example: New York City
-
-const LocationProvider = ({ children }) => {
-  const [isInLocation, setIsInLocation] = useState(false);
-  const { coords, isGeolocationAvailable, isGeolocationEnabled } = useGeolocated({ 
-    positionOptions: { enableHighAccuracy: true },
-    userDecisionTimeout: 5000,
-  });
+const LocationProvider = () => {
+  const [isAtLocation, setIsAtLocation] = useState(false);
 
   useEffect(() => {
-    if (coords) {
-      const distance = calculateDistance(coords.latitude, coords.longitude, predefinedLocation.latitude, predefinedLocation.longitude);
-      if (distance < 1000) { // within 1km radius
-        setIsInLocation(true);
-        toast.success('You are within the target location!');
-      } else {
-        setIsInLocation(false);
-        toast.error('You are not in the target location.');
-      }
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const { latitude, longitude } = position.coords;
+        const targetLocation = { lat: 37.7749, lon: -122.4194 }; // Example coordinates
+
+        const distance = getDistance(
+          { latitude, longitude },
+          targetLocation
+        );
+
+        if (distance < 50) { // Distance in meters
+          setIsAtLocation(true);
+        }
+      }, error => {
+        console.error('Error getting location:', error);
+      });
     }
-  }, [coords]);
+  }, []);
 
-  function calculateDistance(lat1, lon1, lat2, lon2) {
-    const R = 6371e3; // meters
-    const φ1 = lat1 * (Math.PI / 180);
-    const φ2 = lat2 * (Math.PI / 180);
-    const Δφ = (lat2 - lat1) * (Math.PI / 180);
-    const Δλ = (lon2 - lon1) * (Math.PI / 180);
-    const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-              Math.cos(φ1) * Math.cos(φ2) *
-              Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+  const getDistance = (coords1, coords2) => {
+    const R = 6371e3; // Radius of the Earth in meters
+    const φ1 = (coords1.latitude * Math.PI) / 180;
+    const φ2 = (coords2.lat * Math.PI) / 180;
+    const Δφ = ((coords2.lat - coords1.latitude) * Math.PI) / 180;
+    const Δλ = ((coords2.lon - coords1.longitude) * Math.PI) / 180;
+
+    const a =
+      Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+      Math.cos(φ1) * Math.cos(φ2) *
+      Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const d = R * c; // in meters
-    return d;
-  }
 
-  if (!isGeolocationAvailable) {
-    return <div>Your browser does not support Geolocation</div>;
-  }
+    return R * c; // Distance in meters
+  };
 
-  if (!isGeolocationEnabled) {
-    return <div>Geolocation is not enabled</div>;
-  }
-
-  return (
-    <div>
-      {coords ? (
-        <>
-          <div>
-            <p>Your current location:</p>
-            <p>Latitude: {coords.latitude}</p>
-            <p>Longitude: {coords.longitude}</p>
-          </div>
-          {isInLocation ? children : <p>You are not within the target location.</p>}
-        </>
-      ) : (
-        <div>Getting location data...</div>
-      )}
-    </div>
-  );
+  return isAtLocation ? <ThreeDScene /> : <div>Move closer to the location to view the 3D model.</div>;
 };
 
 export default LocationProvider;

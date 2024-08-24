@@ -1,10 +1,14 @@
 import React from 'react';
-import { useGLTF } from '@react-three/drei';
 
 const ThreeDScene = () => {
-  const { scene } = useGLTF('/models/model2.gltf');
-
-  return <primitive object={scene} scale={1.5} />;
+  return (
+    <a-scene embedded arjs>
+      <a-marker preset="hiro">
+        <a-entity gltf-model="/models/model2.gltf" scale="0.5 0.5 0.5"></a-entity>
+      </a-marker>
+      <a-entity camera></a-entity>
+    </a-scene>
+  );
 };
 
 export default ThreeDScene;

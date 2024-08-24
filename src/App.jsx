@@ -1,25 +1,13 @@
 import React from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import LocationProvider from './components/LocationProvider';
-import ThreeDScene from './components/ThreeDScene';
+import LocationDisplay from './components/LocationDisplay';
 
-function App() {
+const App = () => {
   return (
-    <div style={{ height: '100vh' }}>
-      <LocationProvider>
-        <Canvas>
-          <ambientLight />
-          <pointLight position={[10, 10, 10]} />
-          <ThreeDScene />
-          <OrbitControls />
-        </Canvas>
-      </LocationProvider>
-      <ToastContainer />
+    <div className="App">
+      <h1>React Location App</h1>
+      <LocationDisplay />
     </div>
   );
-}
+};
 
 export default App;
