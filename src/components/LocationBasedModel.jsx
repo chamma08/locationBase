@@ -1,10 +1,9 @@
 // src/components/LocationBasedModel.jsx
-import React, { useState, useEffect } from 'react';
-import ModelScene from './ModelScene';
+import React, { useState, useEffect } from "react";
+import ModelScene from "./ModelScene";
 
-const TARGET_LOCATION = { lat: 7.4084, lng: 80.6103
- }; 
-const RADIUS = 100; 
+const TARGET_LOCATION = { lat: 6.9636833, lng: 80.1300807 };
+const RADIUS = 100;
 
 const getDistanceFromLatLonInMeters = (lat1, lon1, lat2, lon2) => {
   const R = 6371e3; // Radius of the Earth in meters
@@ -24,7 +23,7 @@ const LocationBasedModel = ({ modelUrl }) => {
 
   useEffect(() => {
     if (!navigator.geolocation) {
-      alert('Geolocation is not supported by your browser.');
+      alert("Geolocation is not supported by your browser.");
       return;
     }
 
@@ -44,7 +43,7 @@ const LocationBasedModel = ({ modelUrl }) => {
     };
 
     const error = () => {
-      alert('Unable to retrieve your location.');
+      alert("Unable to retrieve your location.");
     };
 
     const watcher = navigator.geolocation.watchPosition(success, error, {
