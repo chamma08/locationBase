@@ -7,7 +7,7 @@ import { useThree } from "@react-three/fiber";
 
 function Model({ url }) {
   const { scene } = useGLTF(url);
-  return <primitive object={scene} scale={[0.4, 0.4, 0.4]} />;
+  return <primitive object={scene} scale={[0.3, 0.3, 0.3]} />;
 }
 
 const SceneContent = ({ modelUrl }) => {
