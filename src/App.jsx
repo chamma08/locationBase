@@ -6,7 +6,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <h1>WebXR Location-Based App</h1>
+      <h1>Location Based App</h1>
       <LocationBasedModel modelUrl="/models/model2.gltf" />
     </div>
   );
