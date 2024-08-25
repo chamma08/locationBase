@@ -1,13 +1,13 @@
 // src/components/ModelScene.jsx
-import React, { Suspense, useEffect } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment, useGLTF } from '@react-three/drei';
-import { ARButton } from 'three/examples/jsm/webxr/ARButton';
-import { useThree } from '@react-three/fiber';
+import React, { Suspense, useEffect } from "react";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Environment, useGLTF } from "@react-three/drei";
+import { ARButton } from "three/examples/jsm/webxr/ARButton";
+import { useThree } from "@react-three/fiber";
 
 function Model({ url }) {
   const { scene } = useGLTF(url);
-  return <primitive object={scene} scale={[0.1, 0.1, 0.1]} />;
+  return <primitive object={scene} scale={[0.4, 0.4, 0.4]} />;
 }
 
 const SceneContent = ({ modelUrl }) => {
@@ -28,7 +28,7 @@ const SceneContent = ({ modelUrl }) => {
     <Suspense fallback={null}>
       <ambientLight intensity={0.5} />
       <Model url={modelUrl} />
-      <OrbitControls />
+      <OrbitControls enableZoom={true} enablePan={false} />{" "}
       <Environment preset="sunset" />
     </Suspense>
   );
