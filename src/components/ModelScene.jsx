@@ -14,11 +14,10 @@ const SceneContent = ({ modelUrl }) => {
   const { gl } = useThree();
 
   useEffect(() => {
-    // Append the ARButton to the document body for WebXR
+
     const arButton = ARButton.createButton(gl);
     document.body.appendChild(arButton);
 
-    // Cleanup function to remove the ARButton when the component unmounts
     return () => {
       document.body.removeChild(arButton);
     };

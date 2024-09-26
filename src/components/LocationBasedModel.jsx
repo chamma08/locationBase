@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import ModelScene from "./ModelScene";
 
-const TARGET_LOCATION = { lat: 6.9636833, lng: 80.1300807 };
+const TARGET_LOCATION = { lat: 6.9185650, lng: 79.9727078 };
 const RADIUS = 100;
 
 const getDistanceFromLatLonInMeters = (lat1, lon1, lat2, lon2) => {
