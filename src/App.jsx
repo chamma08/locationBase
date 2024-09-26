@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <h1>Location Based App</h1>
-      <LocationBasedModel modelUrl="/models/scene.gltf" />
+      <LocationBasedModel modelUrl="/models/model2.gltf" />
     </div>
   );
 }
