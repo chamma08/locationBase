@@ -1,7 +1,7 @@
 // src/components/ModelScene.jsx
 import React, { Suspense, useEffect } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
-import { OrbitControls, Environment, useGLTF } from "@react-three/drei";
+import { OrbitControls, Environment, useGLTF,Html } from "@react-three/drei";
 import { ARButton } from "three/examples/jsm/webxr/ARButton";
 import LoadingSpinner from "./LoadingSpinner"; // Import the Loading Spinner
 
@@ -28,7 +28,13 @@ const SceneContent = ({ modelUrl }) => {
   }, [gl, camera]);
 
   return (
-    <Suspense fallback={<LoadingSpinner />}> {/* Use LoadingSpinner as fallback */}
+    <Suspense
+      fallback={
+        <Html center>
+          <LoadingSpinner />
+        </Html>
+      }
+    >
       <ambientLight intensity={0.5} />
       <Model url={modelUrl} />
       <OrbitControls enableZoom={true} enablePan={false} />
@@ -44,5 +50,6 @@ const ModelScene = ({ modelUrl }) => {
     </Canvas>
   );
 };
+
 
 export default ModelScene;
