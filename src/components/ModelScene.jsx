@@ -3,6 +3,7 @@ import React, { Suspense, useEffect } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, Environment, useGLTF } from "@react-three/drei";
 import { ARButton } from "three/examples/jsm/webxr/ARButton";
+import LoadingSpinner from "./LoadingSpinner"; // Import the Loading Spinner
 
 function Model({ url }) {
   const { scene } = useGLTF(url);
@@ -27,7 +28,7 @@ const SceneContent = ({ modelUrl }) => {
   }, [gl, camera]);
 
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<LoadingSpinner />}> {/* Use LoadingSpinner as fallback */}
       <ambientLight intensity={0.5} />
       <Model url={modelUrl} />
       <OrbitControls enableZoom={true} enablePan={false} />
