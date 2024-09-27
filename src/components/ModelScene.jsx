@@ -19,8 +19,8 @@ const SceneContent = ({ modelUrl }) => {
     document.body.appendChild(arButton);
 
     // Position the camera to look at the sky
-    camera.position.set(0, 10, 20); // Adjust as needed
-    camera.lookAt(0, 50, 0); // Look towards the model in the sky
+    camera.position.set(0, 10, 20); 
+    camera.lookAt(0, 50, 0); 
 
     return () => {
       document.body.removeChild(arButton);
