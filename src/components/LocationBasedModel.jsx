@@ -3,8 +3,9 @@ import React, { useState, useEffect } from "react";
 import ModelScene from "./ModelScene";
 
 const TARGET_LOCATION = { lat: 7.407902, lng: 80.6107082 };
-const RADIUS = 100;
+const RADIUS = 100; // Radius in meters
 
+// Function to calculate the distance between two geographical points
 const getDistanceFromLatLonInMeters = (lat1, lon1, lat2, lon2) => {
   const R = 6371e3; // Radius of the Earth in meters
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
@@ -20,6 +21,7 @@ const getDistanceFromLatLonInMeters = (lat1, lon1, lat2, lon2) => {
 
 const LocationBasedModel = ({ modelUrl }) => {
   const [isInTargetLocation, setIsInTargetLocation] = useState(false);
+  const [distance, setDistance] = useState(null); // State to store distance
 
   useEffect(() => {
     if (!navigator.geolocation) {
@@ -29,21 +31,26 @@ const LocationBasedModel = ({ modelUrl }) => {
 
     const success = (position) => {
       const { latitude, longitude } = position.coords;
-      const distance = getDistanceFromLatLonInMeters(
+      const distanceFromTarget = getDistanceFromLatLonInMeters(
         latitude,
         longitude,
         TARGET_LOCATION.lat,
         TARGET_LOCATION.lng
       );
-      if (distance <= RADIUS) {
+      setDistance(distanceFromTarget); // Set distance state
+      if (distanceFromTarget <= RADIUS) {
         setIsInTargetLocation(true);
       } else {
         setIsInTargetLocation(false);
       }
     };
 
-    const error = () => {
-      alert("Unable to retrieve your location.");
+    const error = (err) => {
+      let errorMessage = "Unable to retrieve your location.";
+      if (err.code === 1) errorMessage = "Permission denied.";
+      if (err.code === 2) errorMessage = "Position unavailable.";
+      if (err.code === 3) errorMessage = "Timeout reached.";
+      alert(errorMessage);
     };
 
     const watcher = navigator.geolocation.watchPosition(success, error, {
@@ -57,10 +64,18 @@ const LocationBasedModel = ({ modelUrl }) => {
     };
   }, []);
 
-  return isInTargetLocation ? (
-    <ModelScene modelUrl={modelUrl} />
-  ) : (
-    <p>You are not in the correct location.</p>
+  return (
+    <>
+      {isInTargetLocation ? (
+        <ModelScene modelUrl={modelUrl} />
+      ) : (
+        <p>
+          {distance !== null
+            ? `You are ${Math.round(distance)} meters away from the target location.`
+            : "Checking your location..."}
+        </p>
+      )}
+    </>
   );
 };
 
