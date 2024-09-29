@@ -17,9 +17,9 @@ const SceneContent = ({ modelUrl }) => {
     const arButton = ARButton.createButton(gl);
     document.body.appendChild(arButton);
 
-    // Adjust the camera position and direction to view the model
-    camera.position.set(0, 2, 5); // Position the camera higher and closer to the model
-    camera.lookAt(0, 0, 0); // Look directly at the model's position
+     // Adjust the camera position and direction to view the model
+     camera.position.set(0, 1, 5); // Lower the camera position
+     camera.lookAt(0, 10, 0); // Look up to the model's position at y=10
 
     return () => {
       document.body.removeChild(arButton);
