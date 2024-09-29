@@ -18,8 +18,8 @@ const SceneContent = ({ modelUrl }) => {
     document.body.appendChild(arButton);
 
      // Adjust the camera position and direction to view the model
-     camera.position.set(0, 1, 5); // Lower the camera position
-     camera.lookAt(0, 40, 0); // Look up to the model's position at y=10
+    camera.position.set(0, 1, 5); // Lower the camera position
+    camera.lookAt(0, 10, 0); // Look up to the model's position at y=10
 
     return () => {
       document.body.removeChild(arButton);
