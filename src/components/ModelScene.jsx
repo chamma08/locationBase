@@ -7,8 +7,8 @@ import LoadingSpinner from "./LoadingSpinner"; // Import the Loading Spinner
 function Model({ url }) {
   const { scene } = useGLTF(url);
   return (
-    // Increase the scale to make the model bigger and move it higher in the sky by increasing the y-position
-    <primitive object={scene} scale={[1, 1, 1]} position={[0, 20, 0]} /> 
+    // Slightly reduce scale and position to ensure it's within view
+    <primitive object={scene} scale={[0.7, 0.7, 0.7]} position={[0, 5, 0]} /> 
   );
 }
 
@@ -20,9 +20,9 @@ const SceneContent = ({ modelUrl }) => {
     const arButton = ARButton.createButton(gl);
     document.body.appendChild(arButton);
 
-    // Adjust the camera position and direction to view the model in the sky
-    camera.position.set(0, 2, 10); // Adjust camera to be lower looking up
-    camera.lookAt(0, 20, 0); // Look at the model's position in the sky
+    // Adjust the camera position to be closer and looking at the model
+    camera.position.set(0, 2, 10); // Bring the camera closer
+    camera.lookAt(0, 5, 0); // Look directly at the model's position
 
     return () => {
       document.body.removeChild(arButton);
