@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import ModelScene from "./ModelScene";
 
-const TARGET_LOCATION = { lat: /* 6.9638756 */ 7.4083216, lng: /* 80.1299861 */ 80.6102334};
+const TARGET_LOCATION = { lat: 6.9638756 /* 7.4083216 */, lng: 80.1299861/*  80.6102334 */};
 const RADIUS = 100; // Radius in meters
 
 // Function to calculate the distance between two geographical points
