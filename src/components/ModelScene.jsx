@@ -7,8 +7,8 @@ import LoadingSpinner from "./LoadingSpinner"; // Import the Loading Spinner
 function Model({ url }) {
   const { scene } = useGLTF(url);
   return (
-    // Ensure the scale is appropriate for mobile devices and place it closer to the origin
-    <primitive object={scene} scale={[0.5, 0.5, 0.5]} position={[0, 0, 0]} />
+    // Increase the y position to raise the model into the sky
+    <primitive object={scene} scale={[0.5, 0.5, 0.5]} position={[0, 10, 0]} /> 
   );
 }
 
@@ -21,8 +21,8 @@ const SceneContent = ({ modelUrl }) => {
     document.body.appendChild(arButton);
 
     // Adjust the camera for mobile devices
-    camera.position.set(0, 1.5, 4); // Set the camera closer for mobile
-    camera.lookAt(0, 1, 0); // Center the camera on the model
+    camera.position.set(0, 1.5, 8); // Set the camera a bit farther back to view the model in the sky
+    camera.lookAt(0, 10, 0); // Look at the model's new position in the sky
     camera.fov = 75; // Widen the field of view for mobile screens
     camera.updateProjectionMatrix(); // Update camera projection matrix
 
