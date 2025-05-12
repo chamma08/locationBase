@@ -1,14 +1,103 @@
-body {
-  font-family: Arial, sans-serif;
+/* src/App.css */
+:root {
+  --primary-color: #3a7bd5;
+  --dark-color: #24292e;
+  --light-color: #f5f7fa;
+  --accent-color: #4caf50;
+  --error-color: #f44336;
+  --text-color: #333;
+  --text-light: #666;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-.App {
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--light-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.app-header {
+  background-color: var(--dark-color);
+  color: white;
+  padding: 1rem;
   text-align: center;
-  padding: 20px;
+  box-shadow: var(--box-shadow);
+  position: relative;
+  z-index: 10;
 }
 
-h1 {
-  color: #333;
+.app-header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.2rem;
+}
+
+.app-subtitle {
+  font-size: 1rem;
+  font-weight: 300;
+  opacity: 0.9;
+}
+
+.app-content {
+  flex: 1;
+  padding: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make the 3D canvas cover the full content area */
+.app-content canvas {
+  width: 100% !important;
+  height: 100% !important;
+  touch-action: none;
+}
+
+.app-footer {
+  background-color: var(--dark-color);
+  color: white;
+  text-align: center;
+  padding: 0.8rem;
+  font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .app-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .app-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .app-footer {
+    padding: 0.6rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    padding: 0.8rem;
+  }
+  
+  .app-header h1 {
+    font-size: 1.3rem;
+  }
 }

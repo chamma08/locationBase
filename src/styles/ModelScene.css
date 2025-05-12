@@ -1,0 +1,88 @@
+/* src/styles/ModelScene.css */
+.model-scene-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+  touch-action: none;
+  outline: none;
+}
+
+/* Style the AR button */
+.ar-button {
+  position: absolute !important;
+  bottom: 60px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  padding: 12px 24px !important;
+  border: none !important;
+  border-radius: 30px !important;
+  background-color: #3a7bd5 !important;
+  color: white !important;
+  font-weight: 600 !important;
+  font-family: 'Segoe UI', sans-serif !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+  z-index: 1000 !important;
+  cursor: pointer !important;
+}
+
+.ar-button:hover {
+  transform: translateX(-50%) scale(1.05) !important;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25) !important;
+}
+
+.ar-not-supported {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #666;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.model-controls-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 0.8rem;
+  padding: 0 1rem;
+  z-index: 10;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ar-button {
+    font-size: 14px !important;
+    padding: 10px 20px !important;
+  }
+  
+  .model-controls-hint {
+    font-size: 0.7rem;
+    bottom: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ar-button {
+    font-size: 12px !important;
+    padding: 8px 16px !important;
+    bottom: 50px !important;
+  }
+  
+  .model-controls-hint {
+    font-size: 0.65rem;
+    bottom: 12px;
+  }
+}

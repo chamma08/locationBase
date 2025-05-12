@@ -1,21 +1,11 @@
 import React from "react";
 import "../styles/LoadingSpinner.css";
 
-
 const LoadingSpinner = () => {
-  const spinnerStyle = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
-    fontSize: "2rem",
-    color: "#555",
-  };
-
   return (
-    <div style={spinnerStyle}>
+    <div className="spinner-container">
       <div className="spinner" />
-      Loading Model...
+      <div className="loading-text">Loading 3D Model...</div>
     </div>
   );
 };
