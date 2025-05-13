@@ -4,7 +4,7 @@ import ModelScene from "./ModelScene";
 import "../styles/LoadingSpinner.css";
 import "../styles/LocationBasedModel.css";
 
-const TARGET_LOCATION = { lat: 6.9638756, lng: 80.1299861 };
+const TARGET_LOCATION = { lat: 6.9185790, lng: 79.9727810 };
 const RADIUS = 100; // Radius in meters
 
 // Function to calculate the distance between two geographical points
